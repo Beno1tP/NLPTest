@@ -1,0 +1,23 @@
+Intent,SVM F1,SVM Support,JointBERT F1,JointBERT Support,LLM F1,LLM Support
+UNK,0.000,4,1.000,4,-,0
+abbreviation,1.000,52,0.962,52,0.000,9
+aircraft,0.762,9,0.889,9,-,0
+airfare,0.891,45,0.989,45,0.000,7
+airfare#flight,0.786,17,0.944,17,0.000,1
+airline,1.000,17,1.000,17,0.000,2
+airline#flight_no,0.000,1,1.000,1,-,0
+airport,1.000,18,0.944,18,0.000,1
+capacity,1.000,21,0.977,21,0.000,1
+city,0.667,6,0.923,6,-,0
+distance,1.000,10,0.870,10,0.000,2
+flight,0.985,626,0.982,626,0.795,66
+flight#flight_time,-,0,0.000,0,-,0
+flight_no,0.889,8,0.824,8,0.000,1
+flight_no#flight_time,-,0,0.000,0,-,0
+flight_time,1.000,1,0.667,1,-,0
+ground_fare,0.833,7,0.923,7,0.000,3
+ground_fare#ground_service,-,0,0.000,0,-,0
+ground_service,1.000,36,0.921,36,0.000,4
+meal,0.909,6,1.000,6,0.000,2
+quantity,0.875,7,0.875,7,0.000,1
+restriction,1.000,2,1.000,2,-,0

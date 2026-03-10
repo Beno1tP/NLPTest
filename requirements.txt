@@ -1,0 +1,51 @@
+# Core ML/NLP
+torch>=2.0
+transformers>=4.30
+datasets
+scikit-learn
+seqeval
+underthesea
+
+# Data processing
+pandas
+numpy
+
+# Visualization
+matplotlib
+seaborn
+
+# Web UI
+streamlit>=1.28
+streamlit-webrtc
+streamlit-audiorecorder
+
+# Config
+pyyaml
+python-dotenv
+
+# Progress
+tqdm
+
+# Speech (Google Cloud)
+google-cloud-speech
+google-cloud-texttospeech
+SpeechRecognition
+PyAudio
+pydub
+
+# Alternative TTS (free)
+gTTS
+edge-tts
+
+# LLM APIs (optional)
+anthropic
+openai
+
+# Testing
+pytest
+pytest-cov
+
+# Development
+black
+isort
+mypy

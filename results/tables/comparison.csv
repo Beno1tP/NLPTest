@@ -1,0 +1,4 @@
+Model,Intent Accuracy,Intent F1 (macro),Slot F1 (entity),Slot F1 (token),Sentence Accuracy,Inference Time (s),Samples/sec
+SVM,0.9686,0.8209,0.9174,0.6549,0.7783,0.93,959.0
+JointBERT,0.9686,0.8040,0.9109,0.9777,0.7200,15.00,59.5
+LLM,0.6600,0.0612,0.1056,0.0253,0.0000,20.92,4.8

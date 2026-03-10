@@ -1,0 +1,42 @@
+# LLM Zero-shot Configuration
+provider: "anthropic"  # or "openai"
+
+models:
+  anthropic:
+    model: "claude-3-haiku-20240307"  # Fast and cheap for evaluation
+    max_tokens: 512
+    temperature: 0.0
+  openai:
+    model: "gpt-4o-mini"
+    max_tokens: 512
+    temperature: 0.0
+
+prompts:
+  system: |
+    You are a Vietnamese NLU system for air travel customer support.
+    Extract intent and slots from user utterances.
+
+    Available intents: flight, airfare, ground_service, airline, abbreviation,
+    aircraft, flight_time, quantity, distance, city, airport, ground_fare,
+    capacity, flight_no, meal, restriction, airline+flight_no, cheapest,
+    ground_service+ground_fare, airfare+flight_time, flight+airfare
+
+    Available slot types: fromloc.city_name, toloc.city_name, depart_date.day_name,
+    depart_date.month_name, depart_date.day_number, depart_time.time,
+    arrive_time.time, airline_name, flight_number, class_type, round_trip
+
+    Respond ONLY with valid JSON.
+
+  user_template: |
+    Extract intent and slots from: "{utterance}"
+
+    Output format:
+    {{"intent": "...", "confidence": 0.0-1.0, "slots": {{"slot_type": "value"}}}}
+
+evaluation:
+  batch_size: 10  # Rate limiting
+  delay_seconds: 0.5
+  max_samples: 500  # Limit for cost control
+
+paths:
+  results: "results/llm_evaluation.json"

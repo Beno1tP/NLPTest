@@ -1,0 +1,28 @@
+# Streamlit Demo Application Dependencies
+# Install with: pip install -r requirements-app.txt
+
+# Web UI Framework
+streamlit>=1.28
+
+# Audio Recording in Browser
+streamlit-audiorecorder>=0.0.5
+
+# Alternative: WebRTC-based audio (optional)
+# streamlit-webrtc>=0.47
+
+# Speech Services
+gTTS>=2.3                  # Google Text-to-Speech (free)
+edge-tts>=6.1              # Microsoft Edge TTS (free, higher quality)
+SpeechRecognition>=3.10    # Speech recognition wrapper
+PyAudio>=0.2.14            # Microphone access (may need system deps)
+pydub>=0.25                # Audio format conversion
+
+# Core dependencies (should already be installed from main requirements.txt)
+torch>=2.0
+transformers>=4.30
+pyyaml
+
+# Note: PyAudio may require system-level dependencies:
+# - macOS: brew install portaudio
+# - Ubuntu: sudo apt-get install portaudio19-dev python3-pyaudio
+# - Windows: pip install PyAudio (should work directly)

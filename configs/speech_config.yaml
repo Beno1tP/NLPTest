@@ -1,0 +1,35 @@
+# Speech Configuration (STT + TTS)
+stt:
+  provider: "google_cloud"  # google_cloud, speech_recognition
+  google_cloud:
+    language_code: "vi-VN"
+    encoding: "LINEAR16"
+    sample_rate_hertz: 16000
+    enable_automatic_punctuation: true
+  speech_recognition:
+    recognizer: "google"  # Free Google Web Speech API
+    language: "vi-VN"
+
+tts:
+  provider: "google_cloud"  # google_cloud, gtts, edge_tts
+  google_cloud:
+    language_code: "vi-VN"
+    voice_name: "vi-VN-Wavenet-A"  # Female voice
+    speaking_rate: 1.0
+    pitch: 0.0
+    audio_encoding: "MP3"
+  gtts:
+    lang: "vi"
+    slow: false
+  edge_tts:
+    voice: "vi-VN-HoaiMyNeural"  # Female Vietnamese voice
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  format: "wav"
+  max_duration_seconds: 30
+
+fallback:
+  enable_text_mode: true
+  mock_stt_on_error: true

@@ -1,0 +1,114 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.so
+*.pyo
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+.env.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Jupyter
+.ipynb_checkpoints/
+.jupyter/
+*.ipynb_checkpoints
+
+# ML/Data files
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.h5
+*.pkl
+*.pickle
+*.joblib
+data/raw/
+data/external/
+models/checkpoints/
+models/saved_models/
+!data/.gitkeep
+!models/.gitkeep
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# Build/dist
+dist/
+build/
+*.egg-info/
+*.egg
+*.whl
+.eggs/
+
+# OS files
+.DS_Store
+Thumbs.db
+.gitkeep
+
+# Logs and temp files
+*.log
+logs/
+tmp/
+temp/
+.tmp/
+
+# Audio demo files
+*.wav
+*.mp3
+*.flac
+*.m4a
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# pytest
+.pytest_cache/
+.tox/
+
+# Mac OS
+.DS_Store
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Misc
+.vscode-settings
+*.bak
