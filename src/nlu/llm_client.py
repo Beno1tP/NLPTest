@@ -280,10 +280,11 @@ class GeminiClient(BaseLLMClient):
             )
 
         try:
-            import google.genai as genai
-            genai.configure(api_key=self.api_key)
-            self.genai = genai
-            self.generation_config = genai.GenerationConfig(
+            from google import genai
+            from google.genai import types as genai_types
+            self.client = genai.Client(api_key=self.api_key)
+            self.genai_types = genai_types
+            self.generation_config = genai_types.GenerateContentConfig(
                 max_output_tokens=self.max_tokens,
                 temperature=self.temperature,
                 response_mime_type="application/json",
@@ -307,11 +308,11 @@ class GeminiClient(BaseLLMClient):
 
         for attempt in range(self.retry_attempts):
             try:
-                model = self.genai.GenerativeModel(
-                    model_name=self.model,
-                    generation_config=self.generation_config,
+                response = self.client.models.generate_content(
+                    model=self.model,
+                    contents=full_prompt,
+                    config=self.generation_config,
                 )
-                response = model.generate_content(full_prompt)
                 parsed = self._parse_json_response(response.text)
                 return self._validate_output(parsed)
 
