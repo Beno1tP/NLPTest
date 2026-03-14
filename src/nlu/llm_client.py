@@ -260,6 +260,69 @@ class OpenAIClient(BaseLLMClient):
         raise RuntimeError(f"OpenAI API failed after {self.retry_attempts} attempts: {last_error}")
 
 
+class GeminiClient(BaseLLMClient):
+    """Google Gemini client using JSON mode for structured output."""
+
+    def __init__(
+        self,
+        model: str = "gemini-3.1-pro",
+        max_tokens: int = 512,
+        temperature: float = 0.0,
+        api_key: Optional[str] = None,
+        **kwargs,
+    ):
+        super().__init__(model, max_tokens, temperature, **kwargs)
+        self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
+
+        if not self.api_key:
+            raise ValueError(
+                "Gemini API key not found. Set GEMINI_API_KEY environment variable."
+            )
+
+        try:
+            import google.generativeai as genai
+            genai.configure(api_key=self.api_key)
+            self.genai = genai
+            self.generation_config = genai.GenerationConfig(
+                max_output_tokens=self.max_tokens,
+                temperature=self.temperature,
+                response_mime_type="application/json",
+            )
+        except ImportError:
+            raise ImportError(
+                "google-generativeai package not installed. Run: pip install google-generativeai"
+            )
+
+    def complete(
+        self,
+        system_prompt: str,
+        user_message: str,
+        tool_schema: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        """Send completion using Gemini with JSON mode."""
+        last_error = None
+
+        # Gemini combines system + user prompt as a single turn
+        full_prompt = f"{system_prompt}\n\n{user_message}"
+
+        for attempt in range(self.retry_attempts):
+            try:
+                model = self.genai.GenerativeModel(
+                    model_name=self.model,
+                    generation_config=self.generation_config,
+                )
+                response = model.generate_content(full_prompt)
+                parsed = self._parse_json_response(response.text)
+                return self._validate_output(parsed)
+
+            except Exception as e:
+                last_error = e
+                if attempt < self.retry_attempts - 1:
+                    time.sleep(self.retry_delay * (attempt + 1))
+
+        raise RuntimeError(f"Gemini API failed after {self.retry_attempts} attempts: {last_error}")
+
+
 class MockClient(BaseLLMClient):
     """Mock client for testing without API keys.
 
@@ -480,7 +543,7 @@ def get_client(
     """Factory function to get appropriate LLM client.
 
     Args:
-        provider: One of "anthropic", "openai", or "mock"
+        provider: One of "anthropic", "openai", "gemini", or "mock"
         model: Optional model name override
         **kwargs: Additional arguments for client
 
@@ -507,8 +570,17 @@ def get_client(
             print("Falling back to mock client.")
             return MockClient(**kwargs)
 
+    elif provider == "gemini":
+        model = model or "gemini-3.1-pro"
+        try:
+            return GeminiClient(model=model, **kwargs)
+        except (ValueError, ImportError) as e:
+            print(f"Warning: Could not initialize Gemini client: {e}")
+            print("Falling back to mock client.")
+            return MockClient(**kwargs)
+
     elif provider == "mock":
         return MockClient(**kwargs)
 
     else:
-        raise ValueError(f"Unknown provider: {provider}. Use 'anthropic', 'openai', or 'mock'.")
+        raise ValueError(f"Unknown provider: {provider}. Use 'anthropic', 'openai', 'gemini', or 'mock'.")
