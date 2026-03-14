@@ -280,7 +280,7 @@ class GeminiClient(BaseLLMClient):
             )
 
         try:
-            import google.generativeai as genai
+            import google.genai as genai
             genai.configure(api_key=self.api_key)
             self.genai = genai
             self.generation_config = genai.GenerationConfig(
@@ -290,7 +290,7 @@ class GeminiClient(BaseLLMClient):
             )
         except ImportError:
             raise ImportError(
-                "google-generativeai package not installed. Run: pip install google-generativeai"
+                "google-genai package not installed. Run: pip install google-genai"
             )
 
     def complete(
