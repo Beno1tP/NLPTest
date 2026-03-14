@@ -265,7 +265,7 @@ class GeminiClient(BaseLLMClient):
 
     def __init__(
         self,
-        model: str = "gemini-3.1-pro-latest",
+        model: str = "gemini-3.1-pro-preview",
         max_tokens: int = 512,
         temperature: float = 0.0,
         api_key: Optional[str] = None,
@@ -571,7 +571,7 @@ def get_client(
             return MockClient(**kwargs)
 
     elif provider == "gemini":
-        model = model or "gemini-3.1-pro-latest"
+        model = model or "gemini-3.1-pro-preview"
         try:
             return GeminiClient(model=model, **kwargs)
         except (ValueError, ImportError) as e:
